@@ -355,7 +355,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
                       children: filteredSuggestions!.map((suggestion) {
                         return Row(children: [
                           Expanded(
-                              child: InkWell(
+                              child: TextFieldTapRegion(InkWell(
                                   child: itemBuilder!(context, suggestion),
                                   onTap: () {
                                     if (!this.mounted) return;
@@ -376,7 +376,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
                                         textChanged!(newText);
                                       }
                                     });
-                                  }))
+                                  })))
                         ]);
                       }).toList(),
                     )))));

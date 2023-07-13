@@ -84,19 +84,27 @@ class AutoCompleteTextField<T> extends StatefulWidget {
 
   void triggerSubmitted() => key.currentState!.triggerSubmitted();
 
-  void updateDecoration(
-          {InputDecoration? decoration,
-          List<TextInputFormatter>? inputFormatters,
-          TextCapitalization? textCapitalization,
-          TextStyle? style,
-          TextInputType? keyboardType,
-          TextInputAction? textInputAction}) =>
-      key.currentState!.updateDecoration(decoration, inputFormatters, textCapitalization, style, keyboardType, textInputAction);
+  void updateDecoration({
+    InputDecoration? decoration,
+    List<TextInputFormatter>? inputFormatters,
+    TextCapitalization? textCapitalization,
+    TextStyle? style,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction,
+  }) =>
+      key.currentState!.updateDecoration(
+        decoration: decoration,
+        inputFormatters: inputFormatters,
+        textCapitalization: textCapitalization,
+        style: style,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+      );
 
   FormBuilderTextField? get textFormField => key.currentState!.textFormField;
 
   @override
-  State<StatefulWidget> createState() => new AutoCompleteTextFieldState<T>(
+  State<StatefulWidget> createState() => AutoCompleteTextFieldState<T>(
         suggestions,
         textChanged,
         textSubmitted,
@@ -199,8 +207,8 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
     if (focusNode != null) {
       focusCreated = false;
     }
-    focusNode ??= new FocusNode();
-    textFormField = new FormBuilderTextField(
+    focusNode ??= FocusNode();
+    textFormField = FormBuilderTextField(
       name: name,
       inputFormatters: inputFormatters,
       textCapitalization: textCapitalization,
@@ -211,9 +219,9 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
       cursorWidth: cursorWidth ?? 1,
       cursorRadius: cursorRadius ?? const Radius.circular(2.0),
       keyboardType: keyboardType,
-      focusNode: focusNode ?? new FocusNode(),
+      focusNode: focusNode ?? FocusNode(),
       autofocus: autofocus,
-      controller: controller ?? new TextEditingController(),
+      controller: controller ?? TextEditingController(),
       textInputAction: textInputAction,
       autocorrect: autocorrect,
       onChanged: (newText) {
@@ -249,8 +257,14 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
     });
   }
 
-  void updateDecoration(InputDecoration? decoration, List<TextInputFormatter>? inputFormatters, TextCapitalization? textCapitalization,
-      TextStyle? style, TextInputType? keyboardType, TextInputAction? textInputAction) {
+  void updateDecoration({
+    InputDecoration? decoration,
+    List<TextInputFormatter>? inputFormatters,
+    TextCapitalization? textCapitalization,
+    TextStyle? style,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction,
+  }) {
     if (decoration != null) {
       this.decoration = decoration;
     }
@@ -276,16 +290,16 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
     }
 
     setState(() {
-      textFormField = new FormBuilderTextField(
+      textFormField = FormBuilderTextField(
         name: name,
         inputFormatters: this.inputFormatters,
         textCapitalization: this.textCapitalization,
         decoration: this.decoration,
         style: this.style,
         keyboardType: this.keyboardType,
-        focusNode: focusNode ?? new FocusNode(),
+        focusNode: focusNode ?? FocusNode(),
         autofocus: autofocus,
-        controller: controller ?? new TextEditingController(),
+        controller: controller ?? TextEditingController(),
         textInputAction: this.textInputAction,
         onChanged: (newText) {
           currentText = newText ?? '';
@@ -348,7 +362,7 @@ class AutoCompleteTextFieldState<T> extends State<AutoCompleteTextField> {
                 child: SizedBox(
                     width: width,
                     child: Card(
-                        child: new Column(
+                        child: Column(
                       children: filteredSuggestions!.map((suggestion) {
                         return Row(children: [
                           Expanded(
@@ -484,14 +498,14 @@ class SimpleAutoCompleteTextField extends AutoCompleteTextField<String> {
         );
 
   @override
-  State<StatefulWidget> createState() => new AutoCompleteTextFieldState<String>(
+  State<StatefulWidget> createState() => AutoCompleteTextFieldState<String>(
         suggestions,
         textChanged,
         textSubmitted,
         onFocusChanged,
         itemSubmitted,
         (context, item) {
-          return new Padding(padding: EdgeInsets.all(8.0), child: new Text(item));
+          return Padding(padding: EdgeInsets.all(8.0), child: Text(item));
         },
         (a, b) {
           return a.compareTo(b);
